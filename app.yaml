@@ -1,0 +1,38 @@
+runtime: python39
+
+# Static file handlers for App Engine
+handlers:
+# Serve the main page
+- url: /
+  static_files: index.html
+  upload: index.html
+
+# Serve CSS files
+- url: /css
+  static_dir: css
+
+# Serve font files
+- url: /fonts
+  static_dir: fonts
+
+# Serve images
+- url: /images
+  static_dir: images
+
+# Serve pages
+- url: /pages
+  static_dir: pages
+
+# Serve any other static files
+- url: /(.+)
+  static_files: \1
+  upload: (.+)
+
+# Skip files that shouldn't be uploaded
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^(.*/)?.*\.bak$
