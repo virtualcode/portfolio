@@ -205,11 +205,11 @@ test.describe('Contact Form', () => {
 
     // Should have proper dimensions
     await expect(iframe).toHaveAttribute('width', '100%');
-    await expect(iframe).toHaveAttribute('height', '800');
+    await expect(iframe).toHaveAttribute('height', '650');
   });
 
   test('should display fallback link to open form in new tab', async ({ page }) => {
-    const fallbackLink = page.locator('a:has-text("Open Form in New Tab")');
+    const fallbackLink = page.locator('a[href="https://forms.gle/AFkAkUEYD6VirSJB7"]');
 
     // Link should be visible
     await expect(fallbackLink).toBeVisible();
