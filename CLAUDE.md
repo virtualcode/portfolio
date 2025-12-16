@@ -124,3 +124,4 @@ See [TESTING.md](TESTING.md) for complete documentation.
 - Footer includes "To the top" button and w3.css attribution
 - Navbar search button is decorative only
 - JavaScript functions are now in external file (`js/main.js`) with error handling
+- "LOAD MORE" button links to Pictorem gallery at https://www.pictorem.com/gallery/MPerry

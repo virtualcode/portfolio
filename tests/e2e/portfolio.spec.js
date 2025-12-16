@@ -247,6 +247,24 @@ test.describe('Content Sections', () => {
     expect(count).toBeGreaterThan(0);
   });
 
+  test('should have functional "LOAD MORE" button linking to Pictorem gallery', async ({ page }) => {
+    await page.goto('/#portfolio');
+
+    const loadMoreButton = page.locator('a:has-text("LOAD MORE")');
+
+    // Button should be visible
+    await expect(loadMoreButton).toBeVisible();
+
+    // Should have correct href
+    await expect(loadMoreButton).toHaveAttribute('href', 'https://www.pictorem.com/gallery/MPerry');
+
+    // Should open in new tab
+    await expect(loadMoreButton).toHaveAttribute('target', '_blank');
+
+    // Should have security attributes
+    await expect(loadMoreButton).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
   test('should display Contact section', async ({ page }) => {
     await page.goto('/#contact');
 
