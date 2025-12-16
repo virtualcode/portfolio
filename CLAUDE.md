@@ -118,7 +118,7 @@ See [TESTING.md](TESTING.md) for complete documentation.
 ## Important Notes
 
 - All paths use relative URLs (no leading `/`) for portability
-- Contact form submits to `/action_page.php` (placeholder, not implemented)
+- Contact form uses embedded Google Form (https://forms.gle/AFkAkUEYD6VirSJB7) with fallback link
 - Font Awesome fonts located in `/fonts/` directory
 - Skills bars show: Photography (90%), Web Design (85%)
 - Footer includes "To the top" button and w3.css attribution

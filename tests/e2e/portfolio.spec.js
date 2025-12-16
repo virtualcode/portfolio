@@ -194,32 +194,41 @@ test.describe('Contact Form', () => {
     await page.goto('/#contact');
   });
 
-  test('should display contact form with all fields', async ({ page }) => {
-    await expect(page.locator('input[name="Name"]')).toBeVisible();
-    await expect(page.locator('input[name="Email"]')).toBeVisible();
-    await expect(page.locator('input[name="Message"]')).toBeVisible();
-    await expect(page.locator('button[type="submit"]')).toBeVisible();
+  test('should display embedded Google Form iframe', async ({ page }) => {
+    const iframe = page.locator('iframe[title="Contact Form"]');
+
+    // Iframe should be visible
+    await expect(iframe).toBeVisible();
+
+    // Should have correct source (Google Forms embed URL)
+    await expect(iframe).toHaveAttribute('src', /docs\.google\.com\/forms/);
+
+    // Should have proper dimensions
+    await expect(iframe).toHaveAttribute('width', '100%');
+    await expect(iframe).toHaveAttribute('height', '800');
   });
 
-  test('should have required field validation', async ({ page }) => {
-    const nameInput = page.locator('input[name="Name"]');
-    const emailInput = page.locator('input[name="Email"]');
-    const messageInput = page.locator('input[name="Message"]');
+  test('should display fallback link to open form in new tab', async ({ page }) => {
+    const fallbackLink = page.locator('a:has-text("Open Form in New Tab")');
 
-    await expect(nameInput).toHaveAttribute('required', '');
-    await expect(emailInput).toHaveAttribute('required', '');
-    await expect(messageInput).toHaveAttribute('required', '');
+    // Link should be visible
+    await expect(fallbackLink).toBeVisible();
+
+    // Should link to Google Form
+    await expect(fallbackLink).toHaveAttribute('href', 'https://forms.gle/AFkAkUEYD6VirSJB7');
+
+    // Should open in new tab
+    await expect(fallbackLink).toHaveAttribute('target', '_blank');
+
+    // Should have security attributes
+    await expect(fallbackLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  test('should prevent submission with empty fields', async ({ page }) => {
-    const submitButton = page.locator('button[type="submit"]');
+  test('should have accessible iframe with title attribute', async ({ page }) => {
+    const iframe = page.locator('iframe[title="Contact Form"]');
 
-    // Try to submit empty form
-    await submitButton.click();
-
-    // Form should not submit (browser validation will prevent it)
-    // We can check by verifying we're still on the same page
-    await expect(page).toHaveURL(/#contact$/);
+    // Should have title for accessibility
+    await expect(iframe).toHaveAttribute('title', 'Contact Form');
   });
 });
 

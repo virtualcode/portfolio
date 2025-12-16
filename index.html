@@ -186,20 +186,25 @@ body, html {
         <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lower Chesapeake Bay, Virginia<br>
       </div>
       <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or leave me a note:</p>
-      <form action="/action_page.php" target="_blank">
-        <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
-          <div class="w3-half">
-            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-          </div>
-          <div class="w3-half">
-            <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
-          </div>
-        </div>
-        <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
-        <button class="w3-button w3-black w3-right w3-section" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </form>
+
+      <!-- Google Form Embed -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9ZqH8XqxBYmVKc_MZBl-KcwZPf2aYW8EqWL0qkWxrBZQo3w/viewform?embedded=true"
+              width="100%"
+              height="800"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              style="border: none;"
+              title="Contact Form">
+        Loading contact form...
+      </iframe>
+
+      <!-- Fallback link if iframe doesn't work -->
+      <p class="w3-center" style="margin-top: 16px;">
+        <a href="https://forms.gle/AFkAkUEYD6VirSJB7" target="_blank" rel="noopener noreferrer" class="w3-button w3-black">
+          <i class="fa fa-external-link"></i> Open Form in New Tab
+        </a>
+      </p>
     </div>
   </div>
 </div>
