@@ -49,3 +49,4 @@ playwright/.cache/
 # Image processing metadata and backups
 images/pp3/
 images/old/
+*.pp3
