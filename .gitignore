@@ -37,6 +37,14 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
+
+# Testing
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+playwright/.cache/
 
 # Image processing metadata and backups
 images/pp3/

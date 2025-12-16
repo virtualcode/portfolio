@@ -19,6 +19,16 @@ php -S localhost:8000
 
 Then navigate to `http://localhost:8000`
 
+**Run tests:**
+```bash
+npm test                # Unit tests
+npm run test:e2e        # E2E tests
+npm run test:coverage   # Coverage report
+npm run test:all        # All tests
+```
+
+See [TESTING.md](TESTING.md) for comprehensive testing documentation.
+
 ## Deployment
 
 **Google Cloud App Engine:**
@@ -49,12 +59,15 @@ The page is divided into sections accessible via anchor links:
 
 ### JavaScript Functionality
 
-Three main functions defined in the inline `<script>` block:
-1. `onClick(element)` - Opens modal gallery for portfolio images
-2. `myFunction()` - Changes navbar style on scroll:
+Three main functions defined in `js/main.js`:
+1. `onClick(element)` - Opens modal gallery for portfolio images (with error handling)
+2. `myFunction()` - Changes navbar style on scroll (debounced for performance):
    - At top: White text on transparent background (`w3-text-white`)
    - When scrolled >100px: Dark text on white card background (`w3-white w3-card w3-animate-top`)
-3. `toggleFunction()` - Toggles mobile navigation menu visibility
+3. `toggleFunction()` - Toggles mobile navigation menu visibility (with error handling)
+4. `debounce(func, wait)` - Utility function for limiting function call rate
+
+All functions include error handling and logging for better debugging.
 
 ### Styling Approach
 
@@ -86,6 +99,22 @@ Current images in `/images/`:
 - `sailboat.jpg`, `seagull.jpg`, `cherryblosom.jpg` - Portfolio gallery
 - Plus additional portfolio images
 
+## Testing
+
+This project has comprehensive test coverage:
+
+- **Unit Tests**: Jest tests for all JavaScript functions (`tests/unit/`)
+- **E2E Tests**: Playwright tests for user flows (`tests/e2e/portfolio.spec.js`)
+- **Accessibility Tests**: WCAG 2.1 AA compliance tests (`tests/e2e/accessibility.spec.js`)
+- **CI/CD**: GitHub Actions workflow runs tests on all PRs and commits
+
+**Coverage Goals:**
+- Functions: 90%+ coverage
+- Lines: 90%+ coverage
+- Branches: 80%+ coverage
+
+See [TESTING.md](TESTING.md) for complete documentation.
+
 ## Important Notes
 
 - All paths use relative URLs (no leading `/`) for portability
@@ -94,3 +123,4 @@ Current images in `/images/`:
 - Skills bars show: Photography (90%), Web Design (85%)
 - Footer includes "To the top" button and w3.css attribution
 - Navbar search button is decorative only
+- JavaScript functions are now in external file (`js/main.js`) with error handling
