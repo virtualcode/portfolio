@@ -120,7 +120,6 @@ See [TESTING.md](TESTING.md) for complete documentation.
 - All paths use relative URLs (no leading `/`) for portability
 - Contact form uses embedded Google Form (https://forms.gle/AFkAkUEYD6VirSJB7) with fallback link
 - Font Awesome fonts located in `/fonts/` directory
-- Skills bars show: Photography (90%), Web Design (85%)
 - Footer includes "To the top" button and w3.css attribution
 - Navbar search button is decorative only
 - JavaScript functions are now in external file (`js/main.js`) with error handling
