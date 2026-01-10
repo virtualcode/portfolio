@@ -50,3 +50,8 @@ playwright/.cache/
 images/pp3/
 images/old/
 *.pp3
+
+# MCP configuration (contains API keys)
+.mcp.json
+
+originals
