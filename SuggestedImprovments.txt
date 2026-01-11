@@ -1,0 +1,229 @@
+ABOUT SECTION IMPROVEMENT SUGGESTIONS
+Captured Horizons Portfolio - Michael Perry
+Generated: 2025-12-26
+================================================================================
+
+CURRENT STATE ANALYSIS
+================================================================================
+
+Index.html About Section (lines 91-107):
+- Focus: 80% photography/sailing, 20% technical (brief AWS mention)
+- Technical content: One sentence mentioning "AWS serverless technology"
+- Missing: AI/code development, specific technical expertise, professional background
+- Tone: Artistic/creative, not technical/professional
+
+Pages/about.html:
+- Focus: Similar creative-heavy narrative
+- Technical content: One paragraph on AWS/serverless (lines 17-19)
+- Missing: Any mention of AI, ML, or code development work
+
+KEY ISSUES IDENTIFIED
+================================================================================
+
+1. No AI/Code Development Mentioned
+   - Zero references to AI, machine learning, or software development expertise
+
+2. Minimal Technical Depth
+   - AWS serverless mentioned but not explained or contextualized
+
+3. Identity Mismatch
+   - Reads like a photography portfolio, not a technical portfolio
+
+4. No Professional Credentials
+   - Missing job titles, companies, projects, technical achievements
+
+5. Buried Expertise
+   - Technical skills are mentioned as a footnote to photography
+
+
+RECOMMENDED IMPROVEMENTS
+================================================================================
+
+OPTION A: TECHNICAL-FIRST APPROACH (RECOMMENDED)
+--------------------------------------------------------------------------------
+
+Restructure the About section to lead with technical expertise:
+
+HTML Code for index.html (replace lines 92-106):
+
+<h3 class="w3-center">ABOUT ME</h3>
+<p class="w3-center"><em>Software Engineer | AI & Cloud Architecture | Landscape Photographer</em></p>
+
+<div class="w3-row">
+  <div class="w3-col m6 w3-center w3-padding-large">
+    <p class="w3-large"><b><i class="fa fa-user w3-margin-right"></i>Michael Perry</b></p>
+    <p><em>Software Engineer & AI Developer</em></p><br>
+    <img src="images/osprey.jpg" class="w3-round w3-image" alt="Photo of Me" width="500" height="333">
+  </div>
+
+  <div class="w3-col m6 w3-hide-small w3-padding-large">
+    <h4><i class="fa fa-code w3-margin-right"></i>Technical Expertise</h4>
+    <p>I'm a software engineer specializing in <strong>AI-powered applications</strong> and <strong>cloud-native architecture</strong>. My work focuses on building intelligent systems using modern AI frameworks, serverless computing, and scalable cloud infrastructure.</p>
+
+    <p><strong>Core Technologies:</strong></p>
+    <ul class="w3-ul">
+      <li><i class="fa fa-check"></i> AI/ML Development (LLMs, Claude API, OpenAI)</li>
+      <li><i class="fa fa-check"></i> Cloud Architecture (AWS Lambda, API Gateway, DynamoDB)</li>
+      <li><i class="fa fa-check"></i> Serverless Applications & Microservices</li>
+      <li><i class="fa fa-check"></i> Full-Stack Development (JavaScript, Python, Node.js)</li>
+    </ul>
+
+    <h4><i class="fa fa-camera w3-margin-right"></i>Photography & Sailing</h4>
+    <p>When I'm not coding, I capture landscapes through photography and explore the Chesapeake Bay by sail. This portfolio showcases both my technical work and creative pursuits, built using the same AWS serverless architecture I develop professionally.</p>
+  </div>
+</div>
+
+
+OPTION B: BALANCED DUAL-IDENTITY
+--------------------------------------------------------------------------------
+
+Keep both identities but give equal weight:
+
+HTML Code for index.html:
+
+<p>Welcome to Captured Horizons—a fusion of <strong>AI engineering</strong>, <strong>cloud architecture</strong>, and <strong>landscape photography</strong>. I build intelligent, serverless applications by day and capture nature's beauty through the lens by evening.</p>
+
+<div class="w3-row w3-padding-32">
+  <div class="w3-col m6">
+    <h4><i class="fa fa-laptop w3-margin-right"></i>Code & AI</h4>
+    <p>I develop AI-powered applications using cutting-edge technologies like Claude AI, AWS Lambda, and modern JavaScript frameworks. My expertise includes:</p>
+    <ul>
+      <li>Building conversational AI and LLM integrations</li>
+      <li>Designing serverless cloud architectures</li>
+      <li>Full-stack application development</li>
+      <li>DevOps and CI/CD automation</li>
+    </ul>
+  </div>
+
+  <div class="w3-col m6">
+    <h4><i class="fa fa-camera w3-margin-right"></i>Photography & Adventure</h4>
+    <p>My passion for technology extends to how I approach photography. I explore remote landscapes and coastal environments, combining sailing and photography to capture unique perspectives of the natural world.</p>
+  </div>
+</div>
+
+
+SPECIFIC RECOMMENDATIONS
+================================================================================
+
+1. UPDATE TAGLINE (line 93)
+   Current: "Exploring Landscapes Through the Lens and Sails"
+   Suggested: "Software Engineer | AI Developer | Landscape Photographer"
+   Alternative: "Building AI-Powered Applications & Capturing Natural Beauty"
+
+2. ADD TECHNICAL SECTION
+   Include specifics about:
+   - AI/ML work (Claude API, LLM integration, AI agents)
+   - Cloud expertise (AWS, serverless, infrastructure as code)
+   - Development skills (languages, frameworks, tools)
+   - Notable projects or contributions
+
+3. QUANTIFY EXPERIENCE
+   Add concrete details:
+   - Years of experience
+   - Technologies used
+   - Project examples
+   - GitHub profile link
+   - LinkedIn profile
+
+4. RESTRUCTURE pages/about.html
+   Expand the AWS section to include:
+   - AI development work
+   - Specific AWS services (Lambda, API Gateway, DynamoDB, S3, CloudFront)
+   - Development methodology
+   - Open source contributions
+   - Technical blog or writing
+
+5. ADD SKILLS ICONS/BADGES
+   Visual representation of technical stack:
+
+   <div class="w3-row w3-center w3-padding-16">
+     <div class="w3-col s2"><i class="fa fa-code fa-3x"></i><br>JavaScript</div>
+     <div class="w3-col s2"><i class="fa fa-python fa-3x"></i><br>Python</div>
+     <div class="w3-col s2"><i class="fa fa-cloud fa-3x"></i><br>AWS</div>
+     <div class="w3-col s2"><i class="fa fa-robot fa-3x"></i><br>AI/ML</div>
+     <div class="w3-col s2"><i class="fa fa-database fa-3x"></i><br>Databases</div>
+     <div class="w3-col s2"><i class="fa fa-git fa-3x"></i><br>Git</div>
+   </div>
+
+6. ADD PROJECTS/PORTFOLIO LINK
+   Create a section highlighting technical projects:
+   - AI chatbots or agents
+   - Serverless applications
+   - Open source contributions
+   - This portfolio site itself as a technical showcase
+
+
+PRIORITY ACTION ITEMS
+================================================================================
+
+HIGH PRIORITY:
+[ ] Rewrite the main paragraph (line 94) to lead with AI/software engineering
+[ ] Add a technical skills section with specific technologies
+[ ] Update professional tagline to reflect dual expertise
+
+MEDIUM PRIORITY:
+[ ] Expand pages/about.html with technical depth
+[ ] Add GitHub/LinkedIn profile links
+[ ] Create technical projects showcase section
+
+LOW PRIORITY:
+[ ] Add visual elements (skill badges, project cards)
+[ ] Add timeline/experience section
+[ ] Consider adding a separate "Technical Portfolio" page
+
+
+CONTENT TO GATHER
+================================================================================
+
+Before implementing, collect the following information:
+1. Specific AI projects you've worked on
+2. Technologies and frameworks you use regularly
+3. Years of experience in software development
+4. Notable achievements or contributions
+5. Preferred social/professional links (GitHub, LinkedIn, etc.)
+6. Companies or clients you've worked with (if shareable)
+7. Technical certifications or credentials
+
+
+TECHNICAL WRITING SUGGESTIONS
+================================================================================
+
+Current Paragraph (line 94):
+"Welcome to Captured Horizons, where the beauty of landscapes meets the
+freedom of sailing, all woven together by creative and innovative web design
+powered by cutting-edge AWS serverless technology."
+
+Problems:
+- Technical work is subordinate to photography
+- "Creative and innovative web design" is vague
+- AWS mentioned but not explained
+
+Suggested Rewrite:
+"I'm Michael Perry, a software engineer specializing in AI-powered applications
+and cloud-native architecture. I build intelligent systems using modern LLMs,
+serverless computing, and scalable AWS infrastructure. When I'm not developing
+code, I explore the natural world through landscape photography and sailing—
+this portfolio showcases both passions."
+
+Alternative (More Balanced):
+"Welcome to Captured Horizons, where software engineering meets landscape
+photography. I design AI-powered applications and serverless cloud systems
+while capturing the beauty of nature through the lens. This site represents
+both my technical expertise and creative vision, built on AWS infrastructure
+I work with daily."
+
+
+NEXT STEPS
+================================================================================
+
+1. Review these suggestions
+2. Choose between Option A (technical-first) or Option B (balanced)
+3. Gather specific details about your AI/development work
+4. Decide on which technologies to highlight
+5. Implement changes to index.html and pages/about.html
+6. Consider adding a dedicated technical portfolio section
+7. Update metadata and SEO to reflect technical expertise
+
+================================================================================
+END OF SUGGESTIONS
+================================================================================
