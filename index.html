@@ -83,8 +83,7 @@ body, html {
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-64" id="about">
   <h3 class="w3-center">ABOUT ME</h3>
-  <p class="w3-center"><em>Exploring Landscapes Through the Lens and Sails</em></p>
-  <p>Welcome to Captured Horizons, where the beauty of landscapes meets the freedom of sailing, all woven together by creative and innovative web design powered by cutting-edge AWS serverless technology. My passion lies in capturing the breathtaking moments of the world's natural wonders and sharing them through an immersive online experience.</p>
+  <p class="w3-center"><em>I chase light across the Chesapeake Bay—sometimes by lens, sometimes by sail.</em></p>
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large">
       <p class="w3-large"><b><i class="fa fa-user w3-margin-right"></i>Michael Perry</b></p><br>
@@ -93,8 +92,8 @@ body, html {
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
-      <p>I believe that every landscape tells a story, and it's my mission to capture those stories through the lens of my camera. I'm dedicated to exploring remote corners of the earth, chasing the perfect light, and preserving the essence of nature's grandeur. From towering mountains to serene beaches, my photography transports you to the heart of these remarkable locations.</p>
-      <p>Sailing is more than a means of transport; it's a way of life that connects me to the vastness of the open sea. I combine my love for photography with the thrill of sailing to access unique perspectives of landscapes often unseen from the shore.</p>
+      <p>Photography taught me patience. Sailing taught me perspective. Together, they've shown me that the best moments happen when you stop trying to control the frame and simply let the horizon surprise you.</p>
+      <p>Based on Virginia's Lower Chesapeake Bay, I document the interplay of water, sky, and the creatures that navigate between them.</p>
     </div>
   </div>
 </div>
@@ -118,19 +117,11 @@ body, html {
     </div>
 
     <div class="w3-col m3">
-      <img src="images/bluebird.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Bluebird">
-    </div>
-
-    <div class="w3-col m3">
       <img src="images/cherryblosom.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Cherry blossoms">
     </div>
   </div>
 
   <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m3">
-      <img src="images/horizon.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Ocean horizon">
-    </div>
-
     <div class="w3-col m3">
       <img src="images/mobjack.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Mobjack Bay">
     </div>
@@ -169,7 +160,7 @@ body, html {
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
   <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
   <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-    <img id="img01" class="w3-image">
+    <img id="img01" class="w3-image" alt="">
     <p id="caption" class="w3-opacity w3-large"></p>
   </div>
 </div>
@@ -180,22 +171,33 @@ body, html {
 
 <!-- Container (Contact Section) -->
 <div class="w3-content w3-container w3-padding-64" id="contact">
-  <h3 class="w3-center">WHERE I WORK</h3>
-  <p class="w3-center"><em>I'd love your feedback!</em></p>
+  <h3 class="w3-center">GET IN TOUCH</h3>
 
   <div class="w3-row w3-padding-32 w3-section">
     <div class="w3-col m4 w3-container">
-      <img src="images/horizon.jpg" class="w3-image w3-round" style="width:100%">
+      <img src="images/horizon.jpg" class="w3-image w3-round" style="width:100%" alt="Ocean horizon at Lower Chesapeake Bay">
+      <div class="w3-large w3-margin-top">
+        <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lower Chesapeake Bay
+      </div>
     </div>
     <div class="w3-col m8 w3-panel">
-      <div class="w3-large w3-margin-bottom">
-        <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lower Chesapeake Bay, Virginia<br>
-      </div>
-      <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or reach out to discuss photography, sailing, or collaborate on a project.</p>
-      <p class="w3-large">
-        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i>
-        Contact form coming soon - check back later!
-      </p>
+      <form action="mailto:mperry777@gmail.com" method="POST" enctype="text/plain" class="w3-container w3-padding-16">
+        <div class="w3-section">
+          <label class="w3-text-grey"><b>Name</b></label>
+          <input class="w3-input w3-border" type="text" name="name" required placeholder="Your name">
+        </div>
+        <div class="w3-section">
+          <label class="w3-text-grey"><b>Email</b></label>
+          <input class="w3-input w3-border" type="email" name="email" required placeholder="Your email">
+        </div>
+        <div class="w3-section">
+          <label class="w3-text-grey"><b>Message</b></label>
+          <textarea class="w3-input w3-border" name="message" rows="4" placeholder="Your message (optional)"></textarea>
+        </div>
+        <button type="submit" class="w3-button w3-black w3-section">
+          <i class="fa fa-paper-plane w3-margin-right"></i>SEND MESSAGE
+        </button>
+      </form>
     </div>
   </div>
 </div>
@@ -203,7 +205,7 @@ body, html {
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" rel="noopener" class="w3-hover-text-green">w3.css</a></p>
 </footer>
  
 <script src="js/main.js"></script>
