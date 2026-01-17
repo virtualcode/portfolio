@@ -45,6 +45,22 @@ body, html {
 .w3-wide {letter-spacing: 10px;}
 .w3-hover-opacity {cursor: pointer;}
 
+/* Hero text fade-in animation */
+.hero-text {
+  opacity: 0;
+  animation: fadeIn 3s ease-in 3s forwards;
+}
+
+.scroll-hint {
+  opacity: 0;
+  animation: fadeIn 2s ease-in 7s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-width: 768px) {
   .bgimg-1, .bgimg-2, .bgimg-3 {
@@ -77,7 +93,13 @@ body, html {
 </div>
 
 <!-- First Parallax Image -->
-<div class="bgimg-1 w3-display-container" id="home">
+<div class="bgimg-1 w3-display-container w3-center" id="home">
+  <span class="w3-display-middle hero-text" style="white-space:nowrap">
+    <span class="w3-xxlarge w3-text-white w3-wide">IMAGINE</span>
+  </span>
+  <span class="w3-display-bottommiddle scroll-hint w3-text-white w3-margin-bottom w3-large">
+    <i class="fa fa-angle-down w3-xxlarge"></i><br>scroll to see more
+  </span>
 </div>
 
 <!-- Container (About Section) -->
@@ -92,8 +114,9 @@ body, html {
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
-      <p>Photography taught me patience. Sailing taught me perspective. Together, they've shown me that the best moments happen when you stop trying to control the frame and simply let the horizon surprise you.</p>
-      <p>Based on Virginia's Lower Chesapeake Bay, I document the interplay of water, sky, and the creatures that navigate between them.</p>
+      <p>Photography taught me patience. Sailing taught me perspective. Web development taught me that the best solutions are often the simplest ones.</p>
+      <p>Based on Virginia's Lower Chesapeake Bay, I split my time between capturing landscapes and building clean, fast websites. I'm drawn to projects where form meets function—whether that's framing a sunrise over the water or crafting code that loads in under a second.</p>
+      <p>When I'm not behind the camera or keyboard, you'll find me on the water, where the horizon reminds me why I do all of this in the first place.</p>
     </div>
   </div>
 </div>
