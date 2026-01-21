@@ -204,22 +204,23 @@ body, html {
       </div>
     </div>
     <div class="w3-col m8 w3-panel">
-      <form action="mailto:mperry777@gmail.com" method="POST" enctype="text/plain" class="w3-container w3-padding-16">
+      <form id="contact-form" class="w3-container w3-padding-16">
         <div class="w3-section">
           <label class="w3-text-grey"><b>Name</b></label>
-          <input class="w3-input w3-border" type="text" name="name" required placeholder="Your name">
+          <input class="w3-input w3-border" type="text" id="contact-name" name="name" required placeholder="Your name">
         </div>
         <div class="w3-section">
           <label class="w3-text-grey"><b>Email</b></label>
-          <input class="w3-input w3-border" type="email" name="email" required placeholder="Your email">
+          <input class="w3-input w3-border" type="email" id="contact-email" name="email" required placeholder="Your email">
         </div>
         <div class="w3-section">
           <label class="w3-text-grey"><b>Message</b></label>
-          <textarea class="w3-input w3-border" name="message" rows="4" placeholder="Your message (optional)"></textarea>
+          <textarea class="w3-input w3-border" id="contact-message" name="message" rows="4" placeholder="Your message (optional)"></textarea>
         </div>
-        <button type="submit" class="w3-button w3-black w3-section">
+        <button type="submit" id="contact-submit" class="w3-button w3-black w3-section">
           <i class="fa fa-paper-plane w3-margin-right"></i>SEND MESSAGE
         </button>
+        <div id="contact-status" class="w3-section" style="display:none;"></div>
       </form>
     </div>
   </div>

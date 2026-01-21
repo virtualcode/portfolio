@@ -86,12 +86,89 @@ if (typeof window !== 'undefined') {
   window.onscroll = debounce(myFunction, 10);
 }
 
+/**
+ * Contact Form Configuration
+ * Replace YOUR_CLOUD_FUNCTION_URL with your deployed Cloud Function URL
+ */
+const CONTACT_FORM_URL = 'https://us-east1-horizon-capture.cloudfunctions.net/save-contact';
+
+/**
+ * Handle contact form submission
+ * Sends form data to Google Cloud Function and stores in Firestore
+ */
+function submitContactForm(event) {
+  event.preventDefault();
+
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('contact-submit');
+  const statusDiv = document.getElementById('contact-status');
+  const nameInput = document.getElementById('contact-name');
+  const emailInput = document.getElementById('contact-email');
+  const messageInput = document.getElementById('contact-message');
+
+  if (!form || !submitBtn || !statusDiv || !nameInput || !emailInput) {
+    console.error('submitContactForm: Required form elements not found');
+    return;
+  }
+
+  // Disable button and show loading state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin w3-margin-right"></i>SENDING...';
+
+  const formData = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    message: messageInput ? messageInput.value.trim() : ''
+  };
+
+  fetch(CONTACT_FORM_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        statusDiv.className = 'w3-section w3-panel w3-pale-green w3-border-green w3-border';
+        statusDiv.innerHTML = '<i class="fa fa-check w3-margin-right"></i>' + data.message;
+        form.reset();
+      } else {
+        statusDiv.className = 'w3-section w3-panel w3-pale-red w3-border-red w3-border';
+        statusDiv.innerHTML = '<i class="fa fa-exclamation-triangle w3-margin-right"></i>' + (data.error || 'An error occurred.');
+      }
+      statusDiv.style.display = 'block';
+    })
+    .catch(error => {
+      console.error('Contact form error:', error);
+      statusDiv.className = 'w3-section w3-panel w3-pale-red w3-border-red w3-border';
+      statusDiv.innerHTML = '<i class="fa fa-exclamation-triangle w3-margin-right"></i>Unable to send message. Please try again.';
+      statusDiv.style.display = 'block';
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa fa-paper-plane w3-margin-right"></i>SEND MESSAGE';
+    });
+}
+
+// Initialize contact form listener
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', submitContactForm);
+    }
+  });
+}
+
 // Export functions for testing (Node.js environment)
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     onClick,
     myFunction,
     toggleFunction,
-    debounce
+    debounce,
+    submitContactForm
   };
 }
