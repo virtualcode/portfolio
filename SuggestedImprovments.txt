@@ -224,6 +224,65 @@ NEXT STEPS
 6. Consider adding a dedicated technical portfolio section
 7. Update metadata and SEO to reflect technical expertise
 
+
+FUTURE FEATURE IDEAS
+================================================================================
+
+1. ADD A BLOG
+   - Share photography tips, sailing adventures, and technical tutorials
+   - Could use static site generator (Jekyll, Hugo, 11ty) or headless CMS
+   - Topics: landscape photography techniques, Chesapeake Bay sailing,
+     web development tutorials, cloud architecture insights
+   - Helps with SEO and establishes expertise
+
+2. ADD EMAIL NEWSLETTER
+   - Capture visitor emails for updates on new photos, blog posts, projects
+   - Options:
+     * Mailchimp (free tier available, easy integration)
+     * ConvertKit (creator-focused)
+     * Buttondown (simple, developer-friendly)
+     * Substack (if blog-heavy approach)
+   - Add signup form to footer or dedicated section
+   - Consider offering a free download (wallpaper, photo guide) as incentive
+
+3. ADD SALES/SHOP PAGE FOR PHOTOGRAPHS
+   - Sell digital downloads (high-res JPGs, various sizes)
+   - Sell printed photographs (canvas, framed, metal prints)
+   - E-commerce options:
+     * Shopify (full-featured, handles payments/shipping)
+     * Gumroad (simple digital sales, low fees)
+     * Squarespace (good for creatives)
+     * WooCommerce (if moving to WordPress)
+     * Printful/Printify (print-on-demand, no inventory)
+     * SmugMug or Pixieset (photographer-specific platforms)
+   - Pricing tiers:
+     * Digital downloads: $15-50 depending on size/license
+     * Prints: $50-500+ depending on size/medium
+     * Commercial licensing: Custom quotes
+   - Consider limited edition prints for exclusivity
+
+4. ADD SPORTING EVENTS PHOTOGRAPHY SERVICES
+   - Create dedicated "Services" or "Hire Me" page
+   - Offerings:
+     * Sailing regattas and races
+     * Youth sports (soccer, baseball, lacrosse)
+     * High school/college athletics
+     * Running events (5K, marathons, triathlons)
+     * Golf tournaments
+     * Equestrian events
+   - Package options:
+     * Event coverage (half-day/full-day rates)
+     * Team/individual portraits
+     * Action shots with quick turnaround
+     * Online gallery for participants to purchase
+   - Include:
+     * Sample sports photography portfolio
+     * Testimonials from past clients
+     * Booking/inquiry form
+     * Pricing guide or "Request Quote" option
+   - Marketing angle: Combine sailing expertise with sports photography
+     for unique water-based sporting events coverage
+
 ================================================================================
 END OF SUGGESTIONS
 ================================================================================

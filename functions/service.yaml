@@ -1,0 +1,15 @@
+# Cloud Run service configuration
+runtime: python312
+
+# Service settings
+service: save-contact
+
+# Region
+region: us-east1
+
+# Allow unauthenticated access
+# This is handled by gcloud command with --allow-unauthenticated
+
+# Environment variables (if needed)
+# env_variables:
+#   PROJECT_ID: horizon-capture

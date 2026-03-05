@@ -7,9 +7,14 @@
 ehthumbs.db
 Thumbs.db
 
+# Project files
+notes.txt
+plan.md
+
 # Editor directories and files
 .idea
 .vscode
+jsconfig.json
 *.swp
 *.swo
 *~

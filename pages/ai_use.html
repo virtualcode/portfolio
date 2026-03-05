@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How AI and Python data science tools were used to automate late payment detection and financial reconciliation for Georgetown Condominium Association.">
+  <meta name="keywords" content="AI, Python, Jupyter, OCR, financial analysis, pdfplumber, pandas, condominium management, data science">
+  <title>AI-Powered Financial Analysis for Georgetown Condominium Association</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #f9f8f5;
+    }
+
+    /* ── Article wrapper ── */
+    article.blog-post {
+      max-width: 780px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Header ── */
+    header.post-header {
+      border-bottom: 3px solid #2d6a4f;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .post-tag {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    h1.post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1a1a2e;
+      margin-bottom: 0.75rem;
+    }
+
+    .post-meta {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #666;
+      letter-spacing: 0.04em;
+    }
+
+    .post-meta span + span::before {
+      content: ' · ';
+    }
+
+    /* ── Body typography ── */
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid #d4d0c8;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 1.1rem; }
+
+    strong { color: #1a1a2e; }
+
+    /* ── Pull-quote / alert box ── */
+    .alert-box {
+      background: #fff8e1;
+      border-left: 4px solid #f4a261;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .alert-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .alert-box ul li {
+      padding: 0.2rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .alert-box ul li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      color: #f4a261;
+      font-size: 0.85rem;
+      top: 0.25rem;
+    }
+
+    /* ── Data table ── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    thead th {
+      background: #2d6a4f;
+      color: #fff;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) { background: #f0ede6; }
+    tbody tr:nth-child(odd)  { background: #fff; }
+
+    tbody td {
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid #e0ddd6;
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: #2d6a4f;
+      white-space: nowrap;
+    }
+
+    /* ── Code blocks ── */
+    pre {
+      background: #1a1a2e;
+      color: #a8dadc;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 1.5rem 0;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.88em;
+      background: #eae8e0;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      color: #2d6a4f;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* ── Results callout ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #d4d0c8;
+      border-top: 3px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 1rem;
+    }
+
+    .result-card .stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card .label {
+      font-size: 0.82rem;
+      color: #555;
+      font-family: 'Courier New', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Footer ── */
+    footer.post-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d4d0c8;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .tag-list { margin-top: 0.5rem; }
+    .tag-list span {
+      display: inline-block;
+      background: #eae8e0;
+      color: #444;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-right: 0.35rem;
+      margin-top: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    /* ── Breadcrumb nav ── */
+    nav.breadcrumb {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      border-bottom: 1px solid #e0ddd6;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+
+    nav.breadcrumb a {
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    nav.breadcrumb a.breadcrumb-blog { color: #2d6a4f; }
+    nav.breadcrumb a.breadcrumb-home { color: #888; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      h1.post-title { font-size: 1.5rem; }
+      pre { font-size: 0.78rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="blog.html" class="breadcrumb-blog">← Blog</a>
+  &nbsp;/&nbsp;
+  <a href="../index.html" class="breadcrumb-home">Home</a>
+</nav>
+
+<article class="blog-post">
+
+  <header class="post-header">
+    <span class="post-tag">Data Science &amp; AI</span>
+    <h1 class="post-title">AI-Powered Financial Analysis for Georgetown Condominium Association</h1>
+    <p class="post-meta">
+      <span>March 5, 2026</span>
+      <span>Python · Jupyter · OCR · Claude AI</span>
+    </p>
+  </header>
+
+  <!-- ── THE PROBLEM ── -->
+  <h2>The Problem</h2>
+
+  <p>Managing a condominium association's finances is no small task. Georgetown Condominium Association juggles <strong>multiple bank accounts</strong> (National Cooperative Bank, Truist), <strong>13 months of vendor invoices</strong>, utility bills across 6 buildings, an SBA loan, and a roster of recurring vendors — all stored as PDF documents.</p>
+
+  <p>The manual workflow was error-prone and time-consuming. Bills were being paid late, racking up penalty charges across multiple vendors and accounts.</p>
+
+  <div class="alert-box">
+    <ul>
+      <li><strong>HRSD (Sewer):</strong> $1,310.24 past due — risk of service disconnection</li>
+      <li><strong>Newport News Waterworks:</strong> $868.97 past due across 5 building accounts — 10% late fee + 10% annual interest</li>
+      <li><strong>SBA Loan:</strong> $2,538 in arrears, 256 days overdue</li>
+      <li><strong>Dominion Energy:</strong> $233.34 unpaid, 1.5% monthly late charge accruing</li>
+    </ul>
+  </div>
+
+  <p>Total financial exposure at the time of analysis: <strong>$6,267.18</strong> in past-due and current charges. The core challenge was that all of this data lived inside <strong>unstructured PDF files</strong> — bank statements, invoice batches, and utility notices — with no consistent format between vendors or accounts.</p>
+
+  <!-- ── HOW AI IDENTIFIED THE APPROACH ── -->
+  <h2>How AI Identified the Right Approach</h2>
+
+  <p>Rather than a human analyst spending hours deciding which tools to use, <strong>Claude AI</strong> was presented with the problem and the raw document inventory. The AI independently reasoned through the technical requirements and identified that the documents fell into two distinct categories requiring different extraction strategies:</p>
+
+  <h3>1. Bank Statements</h3>
+  <p>Digitally generated PDFs with consistent tabular structure. These could be parsed with text-layer extraction using <code>pdfplumber</code>, with custom regular expressions to match transaction rows by date, description, and amount.</p>
+
+  <h3>2. Vendor Invoices</h3>
+  <p>Multi-vendor, inconsistent layouts. Some invoices label amounts as <code>"Total Due"</code>, others as <code>"Amount Due"</code> or <code>"Balance Forward"</code>. AI recognized this variability and flagged that <strong>OCR (Optical Character Recognition)</strong> would be necessary to reliably extract key fields — Vendor Name, Invoice Number, Due Date, and Total Amount — from documents that might be scanned images rather than text-layer PDFs.</p>
+
+  <p>The AI recommended including <code>pytesseract</code> (a Python wrapper for Tesseract OCR) and <code>pdf2image</code> in the toolchain alongside <code>pdfplumber</code>, forming a robust pipeline that degrades gracefully: try text extraction first, fall back to OCR if needed. This kind of <strong>adaptive document intelligence</strong> is exactly where AI outperforms a static, hand-written script.</p>
+
+  <!-- ── THE DATA SCIENCE STACK ── -->
+  <h2>The Data Science Stack</h2>
+
+  <p>The solution was built entirely in <strong>Python within a Jupyter Notebook</strong> (<code>LatePaymentAnalysis.ipynb</code>) — a natural fit for iterative financial analysis where each cell can be inspected, adjusted, and rerun without restarting the entire pipeline.</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Library</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>pdfplumber</td>
+          <td>Extract text and table data from PDF bank statements</td>
+        </tr>
+        <tr>
+          <td>pytesseract + pdf2image</td>
+          <td>OCR fallback for scanned or image-based invoice PDFs</td>
+        </tr>
+        <tr>
+          <td>pandas</td>
+          <td>DataFrame construction, merging, and filtering</td>
+        </tr>
+        <tr>
+          <td>re (regex)</td>
+          <td>Pattern matching for dates, dollar amounts, invoice numbers</td>
+        </tr>
+        <tr>
+          <td>matplotlib + seaborn</td>
+          <td>Cash flow dashboards and expense visualizations</td>
+        </tr>
+        <tr>
+          <td>openpyxl</td>
+          <td>Export analysis reports to Excel (.xlsx)</td>
+        </tr>
+        <tr>
+          <td>pathlib</td>
+          <td>Automated discovery of all PDF files in the directory</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The core pipeline automatically discovers all invoice and bank statement PDFs, extracts structured data from each, and passes the resulting DataFrames into the analysis engine:</p>
+
+<pre><code># Discover all invoice and bank statement PDFs automatically
+invoice_pdfs = sorted(Path('./Invoices').glob('*.pdf'))
+bank_statement_pdfs = sorted(Path('./Bank Statements').glob('*.pdf'))
+
+# Extract, reconcile, and flag late payments
+late_payments_report = create_payment_tracker(invoices_df, payments_df)</code></pre>
+
+  <p>The <code>create_payment_tracker()</code> function merges invoice due dates against bank statement payment dates using a <strong>left join on invoice number</strong> via <code>pandas</code>, then flags two classes of problems:</p>
+
+  <ul style="margin: 0.5rem 0 1.1rem 1.5rem;">
+    <li><strong>Paid Late</strong> — payment date is after the invoice due date</li>
+    <li><strong>Past-Due &amp; Unpaid</strong> — no matching payment found and due date has already passed</li>
+  </ul>
+
+  <!-- ── WHY OCR WAS CRITICAL ── -->
+  <h2>Why OCR Was Critical</h2>
+
+  <p>Vendor invoices in the real world are messy. The Georgetown invoice batches — 13 monthly PDFs covering January 2025 through January 2026 — contain bills from utilities, landscapers, pest control, property management, and a sanitation district, each with its own layout and terminology.</p>
+
+  <p>AI analysis identified that <strong>naive text extraction would fail silently</strong> on invoices that are scanned paper documents (image-only PDFs), generated from legacy systems that don't embed a text layer, or that use non-standard field labels. By proactively including <code>pytesseract</code> in the stack, the pipeline handles real-world invoice variance without manual pre-processing.</p>
+
+  <p>The AI also designed <strong>adaptive regex patterns</strong> to account for the inconsistent terminology across vendors — for example, matching due dates expressed in any of these forms:</p>
+
+<pre><code>Due Date: 01/17/2025
+DUE: 1/17/25
+Payment Due By January 17, 2025</code></pre>
+
+  <p>Rather than assuming a single fixed format, the extraction functions try multiple patterns in sequence — a design choice the AI reasoned to independently based on its understanding of document variability in real-world financial workflows.</p>
+
+  <!-- ── RESULTS ── -->
+  <h2>Results</h2>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="stat">13</div>
+      <div class="label">Invoice batches auto-processed</div>
+    </div>
+    <div class="result-card">
+      <div class="stat">20+</div>
+      <div class="label">Bank statement PDFs parsed</div>
+    </div>
+    <div class="result-card">
+      <div class="stat">$6,267</div>
+      <div class="label">At-risk liabilities surfaced</div>
+    </div>
+    <div class="result-card">
+      <div class="stat">256 days</div>
+      <div class="label">Longest overdue item identified</div>
+    </div>
+  </div>
+
+  <ul style="margin: 0.5rem 0 1.1rem 1.5rem;">
+    <li>Automated discovery and processing of all invoice and bank statement PDFs</li>
+    <li>Late payment report generated and exported to Excel, sorted by payment priority</li>
+    <li>$6,267.18 in at-risk liabilities surfaced and prioritized for immediate board action</li>
+    <li>Full SBA loan payment history reconstructed, including the $5,184 October 2025 catch-up payment</li>
+    <li>2025 proposed budget loaded as baseline for future budget-vs-actual variance analysis</li>
+  </ul>
+
+  <!-- ── KEY TAKEAWAY ── -->
+  <h2>Key Takeaway</h2>
+
+  <p>This project demonstrates how AI doesn't just execute instructions — it <strong>reasons about the problem domain</strong>. Presented with a folder of financial PDFs and a stated goal, Claude identified the document heterogeneity, recognized when OCR techniques would be required, designed the appropriate toolchain, and produced Python data science code structured around industry-standard <code>pandas</code> DataFrames.</p>
+
+  <p>What would have taken a financial analyst days of manual work was reduced to an <strong>automated, auditable, repeatable Python pipeline</strong> — one that can be re-run each month as new statements and invoices arrive, with no change to the code.</p>
+
+  <p>For community associations, small nonprofits, and property managers dealing with stacks of PDFs and no dedicated accounting staff, this kind of AI-assisted data science workflow represents a practical and accessible path to financial accountability.</p>
+
+  <!-- ── FOOTER ── -->
+  <footer class="post-footer">
+    <div>Georgetown Condominium Association &mdash; Hampton, VA &mdash; 2025 Fiscal Year</div>
+    <div class="tag-list">
+      <span>Python</span>
+      <span>Jupyter Notebooks</span>
+      <span>pdfplumber</span>
+      <span>pytesseract</span>
+      <span>pandas</span>
+      <span>OCR</span>
+      <span>Claude AI</span>
+      <span>Data Science</span>
+      <span>Financial Analysis</span>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>

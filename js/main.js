@@ -88,9 +88,9 @@ if (typeof window !== 'undefined') {
 
 /**
  * Contact Form Configuration
- * Replace YOUR_CLOUD_FUNCTION_URL with your deployed Cloud Function URL
+ * URL for the deployed Cloud Run service
  */
-const CONTACT_FORM_URL = 'https://us-east1-horizon-capture.cloudfunctions.net/save-contact';
+const CONTACT_FORM_URL = 'https://save-contact-857168026110.us-east1.run.app';
 
 /**
  * Handle contact form submission
