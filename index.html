@@ -61,6 +61,14 @@ body, html {
   to { opacity: 1; }
 }
 
+.about-tech-stack {
+  margin-top: 1.2em;
+}
+.portfolio-img { width: 100%; }
+.load-more-btn { margin-top: 64px; }
+.contact-map { width: 100%; }
+.contact-status { display: none; }
+
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-width: 768px) {
   .bgimg-1, .bgimg-2, .bgimg-3 {
@@ -107,7 +115,7 @@ body, html {
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-64" id="about">
   <h3 class="w3-center">ABOUT ME</h3>
-  <p class="w3-center"><em>I chase light across the Chesapeake Bay—sometimes by lens, sometimes by sail.</em></p>
+  <p class="w3-center"><em>I build AI-powered tools and web applications—then take them outside to test them against the real world.</em></p>
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large">
       <p class="w3-large"><b><i class="fa fa-user w3-margin-right"></i>Michael Perry</b></p><br>
@@ -116,9 +124,12 @@ body, html {
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
-      <p>Photography taught me patience. Sailing taught me perspective. Web development taught me that the best solutions are often the simplest ones.</p>
-      <p>Based on Virginia's Lower Chesapeake Bay, I split my time between capturing landscapes and building clean, fast websites. I'm drawn to projects where form meets function—whether that's framing a sunrise over the water or crafting code that loads in under a second.</p>
-      <p>When I'm not behind the camera or keyboard, you'll find me on the water, where the horizon reminds me why I do all of this in the first place.</p>
+      <p>I work at the intersection of <strong>AI, data engineering, and modern web development</strong>. Recent projects include automating financial analysis with Python, OCR, and Claude AI, and deploying serverless infrastructure on Google Cloud.</p>
+      <p>Based on Virginia's Lower Chesapeake Bay, I'm drawn to problems where clean code and intelligent automation make something genuinely useful—whether that's surfacing hidden liabilities in a stack of PDFs or building a site that loads in under a second.</p>
+      <p>Photography and sailing keep me grounded: nature doesn't care how clever your code is. When the light's right, you ship.</p>
+      <p class="w3-small w3-text-grey about-tech-stack">
+        Python &middot; JavaScript &middot; GCP &middot; Claude AI &middot; Serverless &middot; Data Science &middot; Jupyter &middot; OCR
+      </p>
     </div>
   </div>
 </div>
@@ -131,51 +142,66 @@ body, html {
 <div class="w3-content w3-container w3-padding-64" id="portfolio">
   <h3 class="w3-center">MY WORK</h3>
 
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+  <!-- Responsive Grid. Three columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
   <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="images/sailboat.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Sailboat on calm waters">
+    <div class="w3-col m4">
+      <img src="images/bth_5982.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Angel fountain with azaleas">
     </div>
-
-    <div class="w3-col m3">
-      <img src="images/seagull.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Seagull in flight">
+    <div class="w3-col m4">
+      <img src="images/bth_5277.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Photography by Michael Perry">
     </div>
-
-    <div class="w3-col m3">
-      <img src="images/cherryblosom.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Cherry blossoms">
+    <div class="w3-col m4">
+      <img src="images/bth_5997.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Coral honeysuckle">
     </div>
   </div>
 
   <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m3">
-      <img src="images/mobjack.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Mobjack Bay">
+    <div class="w3-col m4">
+      <img src="images/mobjack.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Mobjack Bay">
+    </div>
+    <div class="w3-col m4">
+      <img src="images/seagull.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Seagull in flight">
+    </div>
+    <div class="w3-col m4">
+      <img src="images/bth_6043.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Rhododendron in bloom">
     </div>
   </div>
 
   <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m3">
-      <img src="images/bth_5245.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Photography by Michael Perry">
+    <div class="w3-col m4">
+      <img src="images/bth_5987.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Azalea blossoms">
     </div>
-
-    <div class="w3-col m3">
-      <img src="images/bth_5277.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Photography by Michael Perry">
+    <div class="w3-col m4">
+      <img src="images/bth_6061.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Rhododendron bud">
     </div>
-
-    <div class="w3-col m3">
-      <img src="images/bth_5292.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Photography by Michael Perry">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/osprey.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Osprey">
+    <div class="w3-col m4">
+      <img src="images/virginia.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Sailing vessel Virginia">
     </div>
   </div>
+
   <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m3">
-      <img src="images/virginia.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Sailing Vessal Virginia" title="S/V Virginia">
+    <div class="w3-col m4">
+      <img src="images/bth_5245.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Photography by Michael Perry">
+    </div>
+    <div class="w3-col m4">
+      <img src="images/bth_5292.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Photography by Michael Perry">
+    </div>
+    <div class="w3-col m4">
+      <img src="images/osprey.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Osprey">
     </div>
   </div>
+
   <div class="w3-row-padding w3-center w3-section">
-    <a href="https://www.pictorem.com/gallery/MPerry" target="_blank" rel="noopener noreferrer" class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">
+    <div class="w3-col m4">
+      <img src="images/sailboat.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Sailboat on calm waters">
+    </div>
+    <div class="w3-col m4">
+      <img src="images/cherryblosom.jpg" onclick="onClick(this)" class="w3-hover-opacity portfolio-img" alt="Cherry blossoms">
+    </div>
+  </div>
+
+  <div class="w3-row-padding w3-center w3-section">
+    <a href="https://www.pictorem.com/gallery/MPerry" target="_blank" rel="noopener noreferrer" class="w3-button w3-padding-large w3-light-grey load-more-btn">
       LOAD MORE <i class="fa fa-external-link"></i>
     </a>
   </div>
@@ -200,7 +226,7 @@ body, html {
 
   <div class="w3-row w3-padding-32 w3-section">
     <div class="w3-col m4 w3-container">
-      <img src="images/horizon.jpg" class="w3-image w3-round" style="width:100%" alt="Ocean horizon at Lower Chesapeake Bay">
+      <img src="images/horizon.jpg" class="w3-image w3-round contact-map" alt="Ocean horizon at Lower Chesapeake Bay">
       <div class="w3-large w3-margin-top">
         <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lower Chesapeake Bay
       </div>
@@ -222,7 +248,7 @@ body, html {
         <button type="submit" id="contact-submit" class="w3-button w3-black w3-section">
           <i class="fa fa-paper-plane w3-margin-right"></i>SEND MESSAGE
         </button>
-        <div id="contact-status" class="w3-section" style="display:none;"></div>
+        <div id="contact-status" class="w3-section contact-status"></div>
       </form>
     </div>
   </div>
