@@ -1,5 +1,7 @@
 # Captured Horizons - Photography Portfolio
 
+**Live site:** [virtualcode.github.io/portfolio](https://virtualcode.github.io/portfolio/)
+
 A responsive photography portfolio website showcasing landscape photography combined with sailing adventures. Features parallax scrolling effects and an immersive gallery experience.
 
 ## About
