@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Captured Horizons** - A photography portfolio website featuring parallax scrolling effects. Built with vanilla HTML, CSS, and JavaScript. No build system or framework required.
+**Beyond View** - A photography portfolio website featuring parallax scrolling effects. Built with vanilla HTML, CSS, and JavaScript. No build system or framework required.
 
 ## Development Commands
 
@@ -52,7 +52,7 @@ This is a single-page static website with main content in `index.html`:
 ### HTML Structure
 
 The page is divided into sections accessible via anchor links:
-- `#home` - Hero section with parallax background (fallcolor.jpg) and "CAPTURED HORIZONS" logo
+- `#home` - Hero section with parallax background (fallcolor.jpg) and "BEYOND VIEW" logo
 - `#about` - About section with Michael Perry profile, photography and sailing description
 - `#portfolio` - Portfolio gallery with 7 images and modal viewer
 - `#contact` - Contact form and location (Lower Chesapeake Bay, Virginia)
@@ -81,9 +81,9 @@ Custom styles are inline in the `<head>`:
 
 ### Branding
 
-- **Site Name**: Captured Horizons
+- **Site Name**: Beyond View
 - **Logo Text**:
-  - Desktop: "CAPTURED HORIZONS"
+  - Desktop: "BEYOND VIEW"
   - Mobile: "IMAGINE"
 - **Owner**: Michael Perry
 - **Location**: Lower Chesapeake Bay, Virginia

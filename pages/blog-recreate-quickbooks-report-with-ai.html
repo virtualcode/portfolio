@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A plain-language guide to using Claude or Google Gemini in your web browser to study a QuickBooks report and rebuild it, with a copy-and-paste prompt.">
+  <meta name="keywords" content="QuickBooks, AI, Claude AI, Google Gemini, accounting reports, small business, spreadsheet, privacy">
+  <meta name="author" content="Michael Perry">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <title>How to Recreate a QuickBooks Report Using AI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #f9f8f5;
+    }
+
+    /* ── Article wrapper ── */
+    article.blog-post {
+      max-width: 780px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Header ── */
+    header.post-header {
+      border-bottom: 3px solid #2d6a4f;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .post-tag {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    h1.post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1a1a2e;
+      margin-bottom: 0.75rem;
+    }
+
+    .post-meta {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #666;
+      letter-spacing: 0.04em;
+    }
+
+    .post-meta span + span::before {
+      content: ' · ';
+    }
+
+    /* ── Body typography ── */
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid #d4d0c8;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 1.1rem; }
+
+    strong { color: #1a1a2e; }
+
+    /* ── Pull-quote / alert box ── */
+    .alert-box {
+      background: #fff8e1;
+      border-left: 4px solid #f4a261;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .alert-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .alert-box ul li {
+      padding: 0.2rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .alert-box ul li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      color: #f4a261;
+      font-size: 0.85rem;
+      top: 0.25rem;
+    }
+
+    /* ── Data table ── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    thead th {
+      background: #2d6a4f;
+      color: #fff;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) { background: #f0ede6; }
+    tbody tr:nth-child(odd)  { background: #fff; }
+
+    tbody td {
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid #e0ddd6;
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: #2d6a4f;
+      white-space: nowrap;
+    }
+
+    /* ── Code blocks ── */
+    pre {
+      background: #1a1a2e;
+      color: #a8dadc;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 1.5rem 0;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.88em;
+      background: #eae8e0;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      color: #2d6a4f;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* ── Results callout ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #d4d0c8;
+      border-top: 3px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 1rem;
+    }
+
+    .result-card .stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card .label {
+      font-size: 0.82rem;
+      color: #555;
+      font-family: 'Courier New', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Footer ── */
+    footer.post-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d4d0c8;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .tag-list { margin-top: 0.5rem; }
+    .tag-list span {
+      display: inline-block;
+      background: #eae8e0;
+      color: #444;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-right: 0.35rem;
+      margin-top: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    /* ── Breadcrumb nav ── */
+    nav.breadcrumb {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      border-bottom: 1px solid #e0ddd6;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+
+    nav.breadcrumb a {
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    nav.breadcrumb a.breadcrumb-blog { color: #2d6a4f; }
+    nav.breadcrumb a.breadcrumb-home { color: #888; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      h1.post-title { font-size: 1.5rem; }
+      pre { font-size: 0.78rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="blog.html" class="breadcrumb-blog">&larr; Blog</a>
+  &nbsp;/&nbsp;
+  <a href="../index.html" class="breadcrumb-home">Home</a>
+</nav>
+
+<article class="blog-post">
+
+  <header class="post-header">
+    <span class="post-tag">Data Science &amp; AI</span>
+    <h1 class="post-title">How to Recreate a QuickBooks Report Using AI</h1>
+    <p class="post-meta">
+      <span>November 11, 2026</span>
+      <span>QuickBooks · Claude AI · Google Gemini · Small Business</span>
+    </p>
+  </header>
+
+  <p>Every business has a report it relies on. It might be a profit and loss layout your accountant built years ago, or a monthly summary you rebuild by hand every time. Losing track of how it was made is a common problem, and rebuilding it from scratch is slow.</p>
+
+  <p>An AI assistant can help. You show it a sample of the report. It studies the layout, asks you a few questions, and then walks you through recreating the report in QuickBooks. It can also build a spreadsheet version you can reuse. No programming is needed, and it all happens in your web browser.</p>
+
+  <h2>What You Need</h2>
+  <ul>
+    <li><strong>A web browser</strong> such as Chrome, Edge, Firefox, or Safari.</li>
+    <li><strong>A free account</strong> at <a href="https://claude.ai">claude.ai</a> or <a href="https://gemini.google.com">gemini.google.com</a>.</li>
+    <li><strong>A sample of the report</strong> saved as a PDF.</li>
+  </ul>
+
+  <h2>Step 1: Save Your Report as a PDF</h2>
+  <ol>
+    <li>In QuickBooks Online, open the report you want to copy.</li>
+    <li>Click the <strong>Export</strong> icon near the top right of the report.</li>
+    <li>Choose <strong>Export to PDF</strong> and save the file somewhere easy to find, such as your Desktop.</li>
+  </ol>
+  <p style="margin-top:1.1rem;"><strong>Using QuickBooks Desktop?</strong> It works the same way. Open the report, click <strong>Print</strong>, and choose <strong>Save as PDF</strong>. The rest of this guide applies without changes. Menu names differ a little, and the prompt below asks the AI to cover both versions.</p>
+
+  <h2>Step 2: Remove Sensitive Details Before You Upload</h2>
+  <p>The AI mainly needs the <em>layout</em>: the columns, headings, groupings, and totals. It does not need real customer names or account numbers. Read <a href="#privacy">Privacy and Accuracy</a> below, then clean up the PDF using one of these methods:</p>
+  <ul>
+    <li><strong>Best: hide the details in QuickBooks first.</strong> Before exporting, use the report's <strong>Customize</strong> options to remove name or account columns, or choose a summary view. The details never end up in the file.</li>
+    <li><strong>If you black out the PDF yourself, flatten it.</strong> Drawing a black box over text in a PDF viewer often leaves the original text underneath, still selectable and readable by the AI. After redacting, print the PDF to a new PDF (<strong>Print</strong>, then <strong>Save as PDF</strong>). Then open the new file and try to select the blacked-out text. If you cannot, it is safe to upload.</li>
+  </ul>
+
+  <h2>Step 3: Open the AI and Paste the Prompt</h2>
+  <p>Go to claude.ai or gemini.google.com and start a new chat. Click the paperclip or plus icon and attach your PDF. Then copy everything in the box below and paste it into the chat.</p>
+
+<pre><code>You are a patient, friendly accounting and spreadsheet helper. I am a small
+business owner who uses QuickBooks Online. I am comfortable with computers
+but I am not an accountant, so please use plain language and avoid jargon.
+
+I have attached a PDF of a QuickBooks report. I want to be able to recreate it.
+
+Please do the following, in order:
+
+1. STUDY THE REPORT. Tell me in a few sentences what this report shows, who
+   it is useful for, and the period it covers. List its columns, row
+   groupings, subtotals, and totals. If anything is unclear, ask me before
+   guessing.
+
+2. ASK ME QUESTIONS. Ask me up to 5 short questions, one at a time, such as:
+   - Is this a standard QuickBooks report or a customized one?
+   - Which date range do I want, and monthly, quarterly, or yearly?
+   - Do I use accrual or cash basis?
+   Wait for my answer to each question before continuing.
+
+3. QUICKBOOKS STEPS. Give me numbered, click-by-click instructions to
+   recreate this report inside QuickBooks Online (using Reports, Customize,
+   filters, grouping, and Save customization). Add a short note on how the
+   steps differ in QuickBooks Desktop.
+
+4. SPREADSHEET VERSION. Build me a spreadsheet version with the same layout,
+   using formulas for all subtotals and totals so it updates automatically.
+   Tell me exactly which reports or data I should export from QuickBooks to
+   fill it in. If you can create a downloadable Excel file, do that. If not,
+   give me a table I can paste into Excel or Google Sheets, plus the
+   formulas, and explain where to paste it.
+
+5. CHECK THE WORK. Give me a short checklist for confirming that my rebuilt
+   report matches the original, and tell me anything you are unsure about.
+
+Important: Do not invent any numbers. If you cannot read something clearly in
+the PDF, tell me. Treat the numbers in my PDF as private and use them only
+for this task.</code></pre>
+
+  <h2>Step 4: Answer Its Questions and Follow Along</h2>
+  <p>The AI will first describe the report back to you in its own words. Correct it if it gets anything wrong. Then it will ask a few questions, one at a time. Once you answer, it will give you the QuickBooks steps and the spreadsheet version.</p>
+  <p>If a step does not match what you see on screen, tell the AI exactly what you see, or paste a screenshot. It will adjust. QuickBooks menus change from time to time, so this back-and-forth is normal.</p>
+
+  <h2>Step 5: Check the Numbers</h2>
+  <p>Export the fresh data from QuickBooks as the AI suggests and drop it into the spreadsheet. Then compare the totals with your original report. They should match to the penny. If they do not, tell the AI which line is off and let it help you track down the difference.</p>
+
+  <h2 id="privacy">Privacy and Accuracy</h2>
+  <p>Financial information deserves care. These points are worth reading before you upload anything.</p>
+
+  <h3>Privacy</h3>
+  <div class="alert-box">
+    <ul>
+      <li><strong>Uploads leave your computer.</strong> Anything you attach goes to the AI company's servers. Check your account settings for options about saving chat history or using your chats to improve the service, and turn them off if you can.</li>
+      <li><strong>Remove personal details.</strong> Customer and vendor names, addresses, account numbers, and tax IDs are not needed to copy a layout. See Step 2.</li>
+      <li><strong>Never share logins.</strong> You do not need to give the AI a QuickBooks password, a bank login, or a card number for this task. If a chat ever asks for one, stop.</li>
+      <li><strong>Check your obligations.</strong> If the data belongs to clients, or you work under a confidentiality agreement, find out whether an AI service is allowed first.</li>
+    </ul>
+  </div>
+
+  <h3>Accuracy</h3>
+  <ul>
+    <li><strong>Treat the output as a draft.</strong> AI can misread a blurry PDF and can make arithmetic mistakes.</li>
+    <li><strong>Always compare totals</strong> against the original QuickBooks report before relying on the new version.</li>
+    <li><strong>Have a professional review anything important.</strong> Reports that go to a lender, a tax preparer, or an auditor should be checked by your accountant.</li>
+  </ul>
+
+  <h3>Want More Privacy? Keep It Local or Use a Sandbox</h3>
+  <p>You do not have to send your data to a public AI service. Two alternatives keep it under tighter control:</p>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>What It Is</th>
+          <th>Trade-Off</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Local AI</td>
+          <td>Free tools such as Ollama or LM Studio run an AI model entirely on your own computer, so nothing leaves it.</td>
+          <td>Needs a reasonably capable computer. Local models are usually less polished than Claude or Gemini.</td>
+        </tr>
+        <tr>
+          <td>Cloud sandbox</td>
+          <td>A business-tier AI plan, or a virtual machine you control, keeps your data separate from consumer accounts, with clear terms on retention and training.</td>
+          <td>Costs more and takes some setup.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Key Takeaway</h2>
+  <p>You do not need to be an accountant or a programmer to rebuild a report. Show the AI a sample, answer its questions, follow the steps, and check the totals. Handled with sensible privacy precautions, it can turn an afternoon of guesswork into a short conversation.</p>
+
+  <footer class="post-footer">
+    <div class="tag-list">
+      <span>QuickBooks</span>
+      <span>AI</span>
+      <span>Claude AI</span>
+      <span>Google Gemini</span>
+      <span>Small Business</span>
+      <span>Spreadsheets</span>
+      <span>Privacy</span>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>

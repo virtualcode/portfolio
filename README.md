@@ -1,4 +1,4 @@
-# Captured Horizons - Photography Portfolio
+# Beyond View - Photography Portfolio
 
 **Live site:** [virtualcode.github.io/portfolio](https://virtualcode.github.io/portfolio/)
 
@@ -6,7 +6,7 @@ A responsive photography portfolio website showcasing landscape photography comb
 
 ## About
 
-**Captured Horizons** is the personal portfolio of Michael Perry, featuring landscape photography from the Lower Chesapeake Bay region and beyond. The site combines beautiful imagery with smooth parallax effects to create an engaging visual experience.
+**Beyond View** is the personal portfolio of Michael Perry, featuring landscape photography from the Lower Chesapeake Bay region and beyond. The site combines beautiful imagery with smooth parallax effects to create an engaging visual experience.
 
 ## Features
 
@@ -99,7 +99,7 @@ gcloud app browse
 - Automatically disabled on mobile devices (<768px) for performance
 
 ### Responsive Branding
-- Desktop/Large screens: "CAPTURED HORIZONS"
+- Desktop/Large screens: "BEYOND VIEW"
 - Mobile/Small screens: "IMAGINE"
 
 ### Dynamic Navigation
