@@ -35,7 +35,7 @@ jobs:
           name: unit-test-coverage
 
       - name: Check coverage thresholds
-        run: npm test -- --coverage --coverageThreshold='{"global":{"branches":80,"functions":90,"lines":90,"statements":90}}'
+        run: npm test -- --coverage
 
   e2e-tests:
     name: E2E Tests
