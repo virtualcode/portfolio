@@ -1,6 +1,6 @@
 # Testing Documentation
 
-Comprehensive testing suite for Captured Horizons portfolio website.
+Comprehensive testing suite for Beyond View portfolio website.
 
 ## Table of Contents
 

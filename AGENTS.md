@@ -1,10 +1,10 @@
 # AGENTS.md
 
-This file provides guidance for agentic coding agents working on the Captured Horizons portfolio website.
+This file provides guidance for agentic coding agents working on the Beyond View portfolio website.
 
 ## Project Overview
 
-**Captured Horizons** - A photography portfolio website featuring parallax scrolling effects. Built with vanilla HTML, CSS, and JavaScript. No build system or framework required.
+**Beyond View** - A photography portfolio website featuring parallax scrolling effects. Built with vanilla HTML, CSS, and JavaScript. No build system or framework required.
 
 ## Development Commands
 
