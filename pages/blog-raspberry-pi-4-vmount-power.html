@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Options for running a Raspberry Pi 4 audio recorder from a V-mount camera battery: what the Pi needs, what the battery offers, cable and voltage-drop problems, UPS HATs, regulators, PoE, and a suggested order to try them.">
+  <meta name="keywords" content="Raspberry Pi 4, V-mount battery, UPS HAT, undervoltage, field recording, portable power, USB audio">
+  <meta name="author" content="Michael Perry">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <title>Powering a Raspberry Pi 4 from a V-Mount Battery for Field Audio Recording</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #1a1a2e;
+      background: #f9f8f5;
+    }
+
+    /* ── Article wrapper ── */
+    article.blog-post {
+      max-width: 780px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Header ── */
+    header.post-header {
+      border-bottom: 3px solid #2d6a4f;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .post-tag {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    h1.post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1a1a2e;
+      margin-bottom: 0.75rem;
+    }
+
+    .post-meta {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #666;
+      letter-spacing: 0.04em;
+    }
+
+    .post-meta span + span::before {
+      content: ' · ';
+    }
+
+    /* ── Body typography ── */
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid #d4d0c8;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 1.1rem; }
+
+    strong { color: #1a1a2e; }
+
+    /* ── Pull-quote / alert box ── */
+    .alert-box {
+      background: #fff8e1;
+      border-left: 4px solid #f4a261;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .alert-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .alert-box ul li {
+      padding: 0.2rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .alert-box ul li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      color: #f4a261;
+      font-size: 0.85rem;
+      top: 0.25rem;
+    }
+
+    /* ── Data table ── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    thead th {
+      background: #2d6a4f;
+      color: #fff;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) { background: #f0ede6; }
+    tbody tr:nth-child(odd)  { background: #fff; }
+
+    tbody td {
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid #e0ddd6;
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: #2d6a4f;
+      white-space: nowrap;
+    }
+
+    /* ── Code blocks ── */
+    pre {
+      background: #1a1a2e;
+      color: #a8dadc;
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 1.5rem 0;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.88em;
+      background: #eae8e0;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      color: #2d6a4f;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* ── Results callout ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #d4d0c8;
+      border-top: 3px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 1rem;
+    }
+
+    .result-card .stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2d6a4f;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card .label {
+      font-size: 0.82rem;
+      color: #555;
+      font-family: 'Courier New', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Footer ── */
+    footer.post-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d4d0c8;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .tag-list { margin-top: 0.5rem; }
+    .tag-list span {
+      display: inline-block;
+      background: #eae8e0;
+      color: #444;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-right: 0.35rem;
+      margin-top: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    /* ── Breadcrumb nav ── */
+    nav.breadcrumb {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      border-bottom: 1px solid #e0ddd6;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+
+    nav.breadcrumb a {
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    nav.breadcrumb a.breadcrumb-blog { color: #2d6a4f; }
+    nav.breadcrumb a.breadcrumb-home { color: #888; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      h1.post-title { font-size: 1.5rem; }
+      pre { font-size: 0.78rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="blog.html" class="breadcrumb-blog">&larr; Blog</a>
+  &nbsp;/&nbsp;
+  <a href="../index.html" class="breadcrumb-home">Home</a>
+</nav>
+
+<article class="blog-post">
+
+  <header class="post-header">
+    <span class="post-tag">Raspberry Pi &amp; Audio</span>
+    <h1 class="post-title">Powering a Raspberry Pi 4 from a V-Mount Battery for Field Audio Recording</h1>
+    <p class="post-meta">
+      <span>November 16, 2026</span>
+      <span>Raspberry Pi 4 · V-Mount Battery · Portable Power · Field Recording</span>
+    </p>
+  </header>
+
+  <p>A Raspberry Pi makes a capable field recorder: it can capture a USB microphone or audio interface to an SSD for hours. Away from a wall outlet, the hard part is power. Camera V-mount batteries are a natural source, since they are common, high capacity, and often already part of a video kit. They are not designed with a Pi in mind, though, and the Pi is picky about the power it receives.</p>
+
+  <p>This post covers the options for a <strong>Raspberry Pi 4</strong> recording audio to a USB SSD, powered from a V-mount battery. It covers what the Pi needs, what the battery offers, why undervoltage warnings happen, which add-on boards (HATs) fit the Pi 4, and a suggested order in which to try things. Prices are not covered. Raspberry Pi 5 owners should note that its power rules are different; see <a href="#pi5">If you have a Pi 5</a>.</p>
+
+  <div class="results-grid">
+    <div class="result-card"><div class="stat">5.1 V / 3 A</div><div class="label">Recommended Pi 4 supply</div></div>
+    <div class="result-card"><div class="stat">1.2 A</div><div class="label">Total for USB devices</div></div>
+    <div class="result-card"><div class="stat">4.63 V</div><div class="label">Undervoltage warning level</div></div>
+  </div>
+
+  <h2>What the Pi 4 Needs</h2>
+  <p>Raspberry Pi's own power-supply documentation gives these figures for the Pi 4 Model B:</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Figure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Recommended supply</td><td>3.0 A at 5.1 V over USB-C</td></tr>
+        <tr><td>USB device budget</td><td>1.2 A total, shared by all four ports</td></tr>
+        <tr><td>Board, idle</td><td>about 0.6 A</td></tr>
+        <tr><td>Board, heavy load</td><td>about 1.2 A (1.25 A peak)</td></tr>
+        <tr><td>Low-voltage detection</td><td>below 4.63 V (&plusmn;5%), logged by the kernel</td></tr>
+        <tr><td>Halted, still plugged in</td><td>about 23 mA</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Two details matter for battery use. First, the Pi 4's USB-C port accepts <strong>5 V only</strong>. It does not negotiate the 9, 12, 15 or 20 V profiles a USB Power Delivery source can offer, so those profiles are of no direct use. Second, an SSD and a bus-powered audio interface (especially one that supplies 48 V phantom power to condenser microphones) both draw from the same 1.2 A USB budget.</p>
+
+  <h2>What a V-Mount Battery Offers</h2>
+  <p>Output ports vary by model. As an example, the Neewer PS099E (99 Wh, 14.5 V nominal) lists these outputs:</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Port</th><th>Output</th><th>Use with a Pi 4</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>USB-C</td><td>PD 5, 9, 12, 15 V at 3 A; 20 V at 3.25 A</td><td>The 5 V / 3 A profile matches the Pi 4's recommendation</td></tr>
+        <tr><td>USB-A</td><td>5 V, 2.4 A (manual) or 3 A (product page)</td><td>Workable for light loads; the two sources disagree, so plan on 2.4 A</td></tr>
+        <tr><td>DC barrels</td><td>8 V and 12 V</td><td>Need a regulator; never connect to a 5 V device directly</td></tr>
+        <tr><td>D-Tap</td><td>battery voltage, roughly 12 to 16.8 V</td><td>Needs a regulator or wide-input board</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The higher-voltage ports are only useful with a board that steps the voltage down to 5 V. The Pi cannot use them directly.</p>
+
+  <h2>Start with the Cable</h2>
+  <p>In one test, a Pi 4 with only an SSD attached reported undervoltage within a minute of booting from a 99 Wh V-mount battery. The same Pi on a mains USB-C supply reported none. The Pi's <code>vcgencmd get_throttled</code> command returned <code>0x50005</code> on the battery, which decodes to four flags: under-voltage detected, currently throttled, under-voltage has occurred, and throttling has occurred. With no heavy load attached, the supply path was the problem rather than the workload.</p>
+
+  <p>The usual cause is voltage drop along the cable. USB cables are often made with thin wire, and a 4.63 V warning threshold leaves little margin below 5 V. Standard copper resistance gives these approximate figures (a calculation, not a measurement):</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Cable</th><th>Approximate drop</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.3 m (1 ft), 20 AWG</td><td>about 0.06 V at 3 A</td></tr>
+        <tr><td>1 m, 24 AWG</td><td>about 0.17 V for every amp</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1.1rem;">Length matters more than gauge, so a short cable with stated 20 AWG power wires is a sensible first change. A cable listed only as &ldquo;3 A&rdquo; or &ldquo;fast charge&rdquo; with no wire gauge should be assumed thin. An inline USB power meter at the Pi end shows the voltage the Pi actually receives, and it is the quickest way to see whether a change helped.</p>
+
+  <h2>Test Results: Short Cable on the USB-A Port</h2>
+  <p>A follow-up test used the battery's USB-A port with a 1 ft USB-A to USB-C cable (wire gauge not verified), and a Pi 4 Model B Rev 1.4 on WiFi, powered by the battery only. The Pi 4 has no current sensor, so the only voltage signal is the undervoltage flag, which trips at about 4.63 V. These tests report whether the supply held, not how many watts the Pi drew.</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Test</th><th>Conditions</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>SSD attached, idle</td><td><code>0x50005</code> persistently; repeated undervoltage within minutes of boot</td></tr>
+        <tr><td>2</td><td>SSD unplugged, idle</td><td>Undervoltage only 11&ndash;27 s after boot, then clean for more than 5 minutes</td></tr>
+        <tr><td>3</td><td>SSD unplugged, 40 s of load on all four cores</td><td>Failed: undervoltage three times in 40 s</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1.1rem;">In test 3 the Pi's CPU clock dropped from 1800 MHz to 600 MHz each time the flag was raised and returned to 1800 MHz between dips. Temperature peaked at about 65 &deg;C, well below the thermal limit, so the throttling followed the voltage and not the heat. The kernel log recorded undervoltage at 362, 378 and 396 seconds of uptime.</p>
+
+  <p>What this suggests, as an interpretation and not a measurement:</p>
+  <ul>
+    <li>The short cable alone did not fix the problem. With nothing on USB, the Pi board still dipped under a modest load.</li>
+    <li>The SSD made idle behaviour worse, but it was not the root cause.</li>
+    <li>The likeliest suspect is the USB-A port itself, whose rating is lower than the USB-C port's and which the two published sources disagree on (2.4 A or 3 A). The battery may sag or current-limit on a load transient.</li>
+    <li>If a Pi 4 on this port fails with no peripherals, adding an audio interface would make it worse.</li>
+  </ul>
+  <p>Not yet tried: the same load test on the battery's USB-C 5 V / 3 A port with a USB-C to USB-C cable, and an inline meter to read the actual volts at boot and under load. A reading below about 4.75 V at the Pi under load would confirm the port or cable as the cause before any HAT or regulator is bought.</p>
+
+  <h2>The Options</h2>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Option</th><th>Input</th><th>Fit for a Pi 4</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A. Battery USB-C</td><td>5 V / 3 A</td><td>Simplest; depends on a short, thick cable</td></tr>
+        <tr><td>B. Battery USB-A</td><td>5 V / 2.4 A</td><td>Marginal once an interface is added</td></tr>
+        <tr><td>C. Wide-input regulator</td><td>6&ndash;24 V</td><td>Uses the D-Tap or 12 V barrel; lists the Pi 4B as supported</td></tr>
+        <tr><td>D. 5 V UPS HAT</td><td>5 V only</td><td>Backup cells and safe shutdown; fed from the 5 V port</td></tr>
+        <tr><td>E. PoE+ HAT</td><td>PoE+ Ethernet</td><td>Needs a mains-powered switch or injector</td></tr>
+        <tr><td>F. Mains USB-C supply</td><td>5.1 V / 3 A</td><td>Baseline for testing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>A and B: Battery USB Ports</h3>
+  <p>The battery's 5 V / 3 A USB-C profile equals the Pi 4's recommended supply, so no extra hardware is required. If the Pi still reports undervoltage with a short cable, the cause may be the cable, the connector, or the battery's output under load, and the inline meter helps tell these apart. The USB-A port is rated lower, which leaves less headroom once an SSD and interface are added. In the test above, a Pi 4 on the USB-A port with a 1 ft cable and no peripherals still went undervoltage under a four-core load, so the USB-C port is the one to try first. Note also the Raspberry Pi documentation on multi-port USB-PD supplies: plugging another device into the same supply makes it renegotiate, which a running Pi tolerates but a shut-down Pi may treat as a cue to boot. Avoid plugging a phone into the battery during a recording.</p>
+
+  <h3>C: Wide-Input Regulator</h3>
+  <p>A regulator board turns the battery's higher voltage into a steady 5 V at the Pi. The Geekworm/Yahboom YB-MPP01 is one example. It accepts 6&ndash;24 V and delivers 5 V at up to 3 A (6 V input) or 5 A (7&ndash;24 V input), with reverse-polarity, over-current, over-voltage and over-temperature protection. Its page lists the Raspberry Pi 4B as supported, but the board is designed around the Pi 5. Its Type-C output carries power only and needs a PD-compatible cable, and the page warns against connecting two input sources at once. Because of that Pi 5 design focus, confirming the output with a meter before connecting a Pi 4 is a reasonable precaution.</p>
+  <p>Generic 12 V to 5 V converters work the same way. A converter fixes cable and battery-port limits, but it does not raise the Pi's 1.2 A USB budget. Switching regulators can also leak noise into bus-powered audio gear, so the noise floor is worth checking with a test recording. Ferrite beads on the cable are a common fix.</p>
+  <p>Feeding 5 V into the Pi's GPIO header pins bypasses the Pi's own input protection, so a board that does this needs its own protection to be trustworthy.</p>
+
+  <h3>D: 5 V UPS HATs</h3>
+  <p>A UPS HAT adds rechargeable cells that carry the Pi through a cable wobble or a battery swap, and many provide a safe-shutdown signal when power fails. This matters for recording because a sudden power loss leaves a WAV file with an unfinalized header. Several boards work with the Pi 4:</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Board</th><th>Cells</th><th>Input</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Geekworm X728</td><td>18650, not included</td><td>5 V via USB-C (3 A or more) or DC jack (4 A or more)</td><td>5.1 V up to 5 A out; real-time clock; safe shutdown; auto power-on</td></tr>
+        <tr><td>Waveshare UPS HAT (D)</td><td>2 &times; 21700, not included</td><td>5 V via USB-C</td><td>Pogo-pin power, no GPIO used; charges and powers at the same time</td></tr>
+        <tr><td>Waveshare UPS HAT (B)</td><td>2 &times; 18650, not included</td><td>8.4 V, 2 A charger</td><td>Up to 5 A out; I2C control; check its input range before connecting</td></tr>
+        <tr><td>PiSugar S Plus</td><td>built-in 5000 mAh</td><td>5 V / 3 A</td><td>5 V / 3 A out; no battery readout over I2C</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1.1rem;">These boards take a 5 V input, not the battery's 12&ndash;16 V, so they would be fed from the battery's 5 V USB port. They do not remove a weak cable or port; they buffer it. Charging the on-board cells also draws current: the X728 lists a charging current of 2.3&ndash;3.2 A, which on top of the Pi's own load may exceed what a 3 A battery port provides. That interaction was not tested. Boards stacked on the 40-pin header also need case clearance, so check the case before choosing one.</p>
+
+  <h3>E: PoE+ HAT</h3>
+  <p>The official Raspberry Pi PoE+ HAT works with the Pi 3B+ and Pi 4. It accepts 802.3at PoE+ (37&ndash;57 V), delivers 5 V at up to 4 A through a fully isolated supply, and includes a fan. It requires a PoE switch or injector connected to mains, which makes it a fit for a fixed installation near an outlet and not for a portable battery rig. When the HAT is fitted, the Pi should be powered only through Ethernet.</p>
+
+  <h3>F: Mains USB-C Supply</h3>
+  <p>A 5.1 V / 3 A mains supply is the diagnostic baseline. If the Pi is clean on mains and not on the battery, the battery path is the cause.</p>
+
+  <h2>A Powered Hub for the Audio Interface</h2>
+  <p>With an audio interface that supplies phantom power, the 1.2 A USB budget can run out quickly. A powered USB 2.0 hub with its own 5 V supply takes the interface off the Pi's budget. Raspberry Pi's documentation recommends an externally powered hub for high-demand devices. Look for a hub that does not back-feed 5 V into the Pi: the documentation warns that a badly made hub can power the Pi through its USB port, bypassing the Pi's protection.</p>
+
+  <h2>Estimating Runtime</h2>
+  <p>The Pi 4 draws roughly 3&ndash;6 W on its own (0.6&ndash;1.25 A at 5 V). Adding an SSD and an interface, an assumed 7 W total gives a rough estimate:</p>
+  <pre><code>99 Wh x 0.85 (assumed conversion efficiency) / 7 W = about 12 hours</code></pre>
+  <p>A 50 Wh battery would last about half that. These are assumptions, not measurements; an inline power meter gives the real figure for a given setup.</p>
+
+  <h2>A Suggested Order</h2>
+  <ol>
+    <li>Confirm the Pi is healthy on a mains supply (<code>vcgencmd get_throttled</code> returns <code>0x0</code>).</li>
+    <li>Power it from the battery's USB-C port (not USB-A) with a short cable of stated 20 AWG, with an inline meter at the Pi end. Check <code>journalctl -k -b</code> for undervoltage lines.</li>
+    <li>Add a powered hub for the audio interface.</li>
+    <li>If undervoltage remains, or safe shutdown is wanted, try a 5 V UPS HAT or a wide-input regulator on the D-Tap or 12 V barrel.</li>
+  </ol>
+  <p style="margin-top:1.1rem;">Each step is cheap to try before the next, and the meter makes the effect of each one visible.</p>
+
+  <div class="alert-box">
+    <strong>Cautions</strong>
+    <ul>
+      <li>Never connect the battery's 8 V or 12 V barrel directly to a 5 V device or a 5 V hub.</li>
+      <li>Never power a Pi through two paths at once (for example a HAT and the Pi's own USB-C), unless the board's documentation says it is safe.</li>
+      <li>Lithium cells need matching, correct polarity and a safe place to charge; follow the HAT maker's battery instructions.</li>
+      <li>Do not feed the output of a regulator back into its input terminals, and never connect two inputs at once.</li>
+    </ul>
+  </div>
+
+  <h2 id="pi5">If You Have a Pi 5</h2>
+  <p>The Pi 5 has different rules. It wants 5 V at 5 A (27 W); on a 3 A supply it limits downstream USB devices to 600 mA instead of 1.6 A. A USB-PD source without a 5 V / 5 A profile therefore looks like a 3 A supply to the Pi 5. The Pi 5 also has a PCIe connector, so NVMe HATs and Pi 5-specific UPS boards (the Geekworm X1202, X1205 and similar) apply to it and not to the Pi 4. The advice above about cables, hubs and regulators still applies.</p>
+
+  <h2>What Has Not Been Verified</h2>
+  <ul>
+    <li>Whether a Pi 4 starts from the YB-MPP01's Type-C output.</li>
+    <li>How the X728 divides a 3 A battery port between charging and the Pi's load.</li>
+    <li>Whether the USB-C 5 V / 3 A port holds under the same load that failed on the USB-A port.</li>
+    <li>Which cable gauge was used in the USB-A test; the wire gauge was not verified.</li>
+    <li>The 12 V barrel's current rating on the PS099E, and which of the USB-A ratings (2.4 A or 3 A) is correct.</li>
+    <li>The real power draw of a full recording rig, and therefore the runtime.</li>
+    <li>Whether a stacked HAT fits a given case.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/raspberry-pi/power-supplies.adoc">Raspberry Pi documentation: power supplies</a></li>
+    <li><a href="https://wiki.geekworm.com/X728">Geekworm wiki: X728</a></li>
+    <li><a href="https://wiki.geekworm.com/YB-MPP01">Geekworm wiki: YB-MPP01</a></li>
+    <li><a href="https://www.waveshare.com/ups-hat-d.htm">Waveshare: UPS HAT (D) and UPS module comparison</a></li>
+    <li><a href="https://www.pisugar.com/products/pisugar-s-plus-raspberry-pi-ups">PiSugar S Plus product page</a></li>
+    <li><a href="https://pip.raspberrypi.com/documents/RP-008321-DS-poe-plus-hat-product-brief.pdf">Raspberry Pi PoE+ HAT product brief</a></li>
+    <li><a href="https://www.newsshooter.com/2024/03/03/neewer-ps099e-v-mount-battery-review/">Newsshooter: Neewer PS099E review</a></li>
+  </ul>
+
+  <footer class="post-footer">
+    <div class="tag-list">
+      <span>Raspberry Pi 4</span>
+      <span>V-Mount</span>
+      <span>UPS HAT</span>
+      <span>Portable Power</span>
+      <span>Undervoltage</span>
+      <span>Field Recording</span>
+      <span>USB Audio</span>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>
